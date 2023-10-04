@@ -1,0 +1,2 @@
+my_int_var: int => 3
+my_string_var: str => "Hello"
