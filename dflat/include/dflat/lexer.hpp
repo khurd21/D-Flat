@@ -1,14 +1,14 @@
 #ifndef DFLAT_LEXER_HPP
 #define DFLAT_LEXER_HPP
 
-// TODO: Can I somehow forward declare this Token struct 
-// TODO: Or use a different include file for forward declaration?
-#include <dflat/token.hpp>
-
 #include <string>
 #include <istream>
 #include <fstream>
 #include <vector>
+
+namespace dflat {
+struct Token;
+} // namespace dflat
 
 namespace dflat {
 

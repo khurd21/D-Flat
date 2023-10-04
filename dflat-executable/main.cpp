@@ -1,5 +1,6 @@
 #include <dflat/command_line_args.hpp>
 #include <dflat/lexer.hpp>
+#include <dflat/token.hpp>
 
 #include <iostream>
 #include <istream>
