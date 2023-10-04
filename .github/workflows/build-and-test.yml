@@ -19,19 +19,10 @@ jobs:
       - name: Set up CMake
         uses: threeal/cmake-action@v1.3.0
 
-      - name: Set up GCC
-        run: |
-          sudo apt update
-          sudo apt install g++-13
-
       - name: Build
         run: |
           cmake --build build
-        env:
-          CXX: g++-13
 
       - name: Run Tests
         run: |
           ctest --test-dir build
-        env:
-          CXX: g++-13

@@ -1,6 +1,5 @@
 #include <dflat/command_line_args.hpp>
 
-#include <format>
 #include <iostream>
 #include <string>
 #include <unordered_map>
