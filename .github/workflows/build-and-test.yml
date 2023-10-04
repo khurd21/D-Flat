@@ -19,6 +19,9 @@ jobs:
       - name: Set up CMake
         uses: threeal/cmake-action@v1.3.0
 
+      - name: Set up GCC
+        uses: egor-tensin/setup-gcc@v1
+
       - name: Build
         run: |
           cmake --build build
