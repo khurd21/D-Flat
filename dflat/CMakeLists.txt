@@ -5,6 +5,7 @@ set(sources
     src/command_line_args.cpp
     src/lexer.cpp
     src/token.cpp
+    src/syntax_tree.cpp
 )
 
 add_library(${PROJECT_NAME} ${sources})

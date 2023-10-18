@@ -2,6 +2,7 @@
 #define DFLAT_TOKEN_HPP
 
 #include <string>
+#include <cstdint>
 
 namespace dflat {
 
@@ -20,10 +21,11 @@ struct Token  {
 
     Type type;
     std::string token_value;
+    std::uint64_t line_number{};
 
     Token() = delete;
 
-    Token(const std::string& token_value, const Type token_type);
+    Token(const std::string& token_value, const Type token_type, const std::uint64_t line_number);
 
 }; // struct Token
 

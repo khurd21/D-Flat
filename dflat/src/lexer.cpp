@@ -30,7 +30,7 @@ std::vector<Token> Lexer::tokenize() {
     std::vector<Token> tokens{};
     line_no line{ 1 };
     std::string buffer{};
-    static const Token unknown_token("", Token::UNKNOWN);
+    static const Token unknown_token("", Token::UNKNOWN, 0);
     static Token identifier_token = unknown_token;
 
     bool is_identifier{ false };
@@ -45,14 +45,12 @@ std::vector<Token> Lexer::tokenize() {
         std::cout << "IS IDENT? " << is_identifier << '\n';
         is_identifier = false;
 
-        std::cout << "Buffer: " << buffer << '\n';
-        std::cout << "Size: " << buffer.size() << '\n';
-        std::cout << "C: " << c << '\n';
         if (c == '\n' || c == '\r') {
             if (!buffer.empty()) {
                 std::cerr << "ERROR: on line " << line << ". Unknown token.\n";
                 buffer = "";
             }
+            tokens.emplace_back(c, Token::DELIM, line);
             ++line;
         }
         
@@ -75,9 +73,7 @@ std::vector<Token> Lexer::tokenize() {
 
         // If it is an unknown, we need to check if it was an identifier the step before
         if (token.type == Token::UNKNOWN) {
-            std::cout << "UNKNOWN TRIGGERED: " << token.token_value << " | SIZE: " << token.token_value.size() << '\n';
             if (identifier_token != unknown_token) {
-                std::cout << " It is ident\n";
                 token = identifier_token;
                 identifier_token = unknown_token;
                 is_identifier = true;
@@ -88,7 +84,6 @@ std::vector<Token> Lexer::tokenize() {
 
         buffer = "";
         identifier_token = unknown_token;
-        std::cout << "Adding token: " << token.token_value << '\n';
         tokens.emplace_back(token);
     }
 
@@ -100,17 +95,17 @@ Token Lexer::get_token(const std::string& buffer, const line_no line_number) con
 
     for (const auto& value : Classifier::get_classifiers()) {
         if (value.contains(buffer)) {
-            return Token(buffer, value.type());
+            return Token(buffer, value.type(), line_number);
         }
     }
 
     for (const auto& [regex, token] : regex_to_token) {
         if (std::regex_match(buffer, regex)) {
-            return Token(buffer, token);
+            return Token(buffer, token, line_number);
         }
     }
 
-    return Token("", Token::UNKNOWN);
+    return Token("", Token::UNKNOWN, line_number);
 }
 
 } // dflat

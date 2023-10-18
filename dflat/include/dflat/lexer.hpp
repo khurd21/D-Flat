@@ -5,6 +5,7 @@
 #include <istream>
 #include <fstream>
 #include <vector>
+#include <cstdint>
 
 namespace dflat {
 struct Token;
@@ -12,7 +13,7 @@ struct Token;
 
 namespace dflat {
 
-using line_no = unsigned int;
+using line_no = std::uint64_t;
 
 class Lexer {
 public:
